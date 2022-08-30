@@ -12,7 +12,6 @@ const BookContainer = styled.div`
 const SearchWrapper = styled.div`
   padding: 50px;
   text-align: center;
-}
 `;
 
 const Title = styled.h1`
@@ -28,36 +27,28 @@ const SearchInput = styled.input`
   border: 3px solid #585858;
   padding-left: 20px;
   border-radius: 3px;
-
   &:focus {
     outline: none;
   }
-
-  ${DropDown} : active & {
-    display: block;
-  }
-  ${DropDown} : focus & {
-    display: block;
-  }
 `;
 
-const DropDown = styled.button`
-  border: none;
-  outline: none;
-  position: relative;
-  width: 80px;
+const Dropdown = styled.ul`
+  width: 70%;
+  margin: 0 auto;
+  background-color: white;
+  list-style: none;
 `;
 
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const key = useSelector((state) => state.keyword);
+  const history = useSelector((state) => state.keyword);
 
   const eventInput = (e) => {
     const value = e.target.value;
     setTimeout(() => {
       const time = setInterval(() => {
-        if (value === e.target.value) {
+        if (value === e.target.value && value !== "") {
           clearInterval(time);
           dispatch({ type: "SEARCH", payload: value });
           fetchnews(dispatch, value, 1);
@@ -67,21 +58,23 @@ const Main = () => {
     }, 1000);
   };
 
-  console.log(key);
-
+  console.log(history);
   return (
     <>
       <BookContainer>
         <SearchWrapper>
           <Title>NEWS LIST SEARCH</Title>
-          <DropDown>
-            <SearchInput
-              type="text"
-              placeholder="Please enter search keyword"
-              onChange={eventInput}
-            ></SearchInput>
-          </DropDown>
+          <SearchInput
+            type="text"
+            placeholder="Please enter search keyword"
+            onChange={eventInput}
+          ></SearchInput>
         </SearchWrapper>
+        <Dropdown>
+          {history.map((ele) => (
+            <li key={ele}>{ele}</li>
+          ))}
+        </Dropdown>
       </BookContainer>
     </>
   );
