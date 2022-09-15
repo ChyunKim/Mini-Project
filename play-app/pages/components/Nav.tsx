@@ -2,12 +2,12 @@ import Link from "next/link";
 import { useState } from "react";
 import Router from "next/router";
 
+
 export const Nav = () => {
 
   const [value, setValue] = useState<string>("");
 
   const eventsearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
 
@@ -29,13 +29,13 @@ export const Nav = () => {
             <input
               className="w-1/3 px-4 py-1.5 border text-lg border-gray-300 rounded outline-none text-black mr-5"
               placeholder="Enter the video you want to find.."
-              onFocus={() => Router.push("/search")}
               onChange={eventsearch}
             ></input>
             <Link href={`/search/${value}`}>
               <button
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-1.5 px-4 rounded"
                 type="submit"
+                onClick={()=>Router.push("/search")}
               >
                 Search
               </button>
