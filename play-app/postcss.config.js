@@ -1,13 +1,6 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  // "./src/**/*.{js,ts,jsx,tsx}"
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {},
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
 };
