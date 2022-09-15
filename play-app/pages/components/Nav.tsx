@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { useState } from "react";
+import { useAppSelector } from "../../src/redux/hooks";
+import { useRouter } from "next/router";
 import Router from "next/router";
 
-
 export const Nav = () => {
+  const authname = useAppSelector((state) => state.auth.name);
+  const router = useRouter();
 
   const [value, setValue] = useState<string>("");
 
@@ -19,11 +22,20 @@ export const Nav = () => {
           <div className="ml-auto text-xl space-x-9 pt-10 pb-10">
             <Link href="/">Home</Link>
             <Link href="/search">Search</Link>
-            <Link href="/register">MY</Link>
+            <Link href={authname ? "/my" : "/register"}>MY</Link>
           </div>
         </div>
         <div
-          className="block pl-20 w-full"
+          className={
+            router.pathname === "/my" ? "block pl-20 w-full" : " hidden"
+          }
+        >
+          <span className="font-bold text-2xl">{authname}'s account</span>
+        </div>
+        <div
+          className={
+            router.pathname === "/my" ? "hidden" : "block pl-20 w-full"
+          }
         >
           <form>
             <input
@@ -32,10 +44,10 @@ export const Nav = () => {
               onChange={eventsearch}
             ></input>
             <Link href={`/search/${value}`}>
-              <button
+                <button
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-1.5 px-4 rounded"
                 type="submit"
-                onClick={()=>Router.push("/search")}
+                onClick={ () => Router.push("/search") }
               >
                 Search
               </button>
