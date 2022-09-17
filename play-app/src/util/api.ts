@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "3d7f4cf362dc4a0dc98d02379642b2f0";
+const API_KEY = "";
 export const getAPI = () =>
   axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`);
 
